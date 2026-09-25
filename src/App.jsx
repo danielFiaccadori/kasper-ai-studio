@@ -66,11 +66,11 @@ function MainLayout({ children }) {
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/*" element={
         <MainLayout>
           <Routes>
-            <Route path="/" element={<Navigate to="/keys" replace />} />
             <Route path="/keys" element={<ApiKeysPage />} />
             <Route path="/settings" element={<SettingsPage />} />
           </Routes>
