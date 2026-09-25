@@ -8,15 +8,6 @@ import ApiKeysPage from './pages/ApiKeysPage';
 import LoginPage from './pages/LoginPage';
 import SettingsPage from './pages/SettingsPage';
 
-// Componentes das páginas
-function UsagePage() {
-  return (
-    <div>
-      <h2 className="page-title">Uso</h2>
-      <p style={{ color: 'var(--text-secondary)' }}>Acompanhe o consumo da sua conta e métricas.</p>
-    </div>
-  );
-}
 
 
 function MainLayout({ children }) {
@@ -46,10 +37,6 @@ function MainLayout({ children }) {
             <NavLink to="/keys" className={({isActive}) => `nav-item ${isActive ? 'active' : ''}`}>
               <LuKey size={16} className="nav-icon" />
               <span className="nav-label">Chaves de API</span>
-            </NavLink>
-            <NavLink to="/usage" className={({isActive}) => `nav-item ${isActive ? 'active' : ''}`}>
-              <LuActivity size={16} className="nav-icon" />
-              <span className="nav-label">Uso</span>
             </NavLink>
           </nav>
         </div>
@@ -85,7 +72,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/keys" replace />} />
             <Route path="/keys" element={<ApiKeysPage />} />
-            <Route path="/usage" element={<UsagePage />} />
             <Route path="/settings" element={<SettingsPage />} />
           </Routes>
         </MainLayout>

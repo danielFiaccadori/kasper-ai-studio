@@ -98,100 +98,129 @@ export default function ApiKeysPage() {
 
       <header className="api-keys-header">
         <h1 className="page-title">Chaves de API</h1>
-        <button 
-          className="create-key-btn" 
-          onClick={() => setIsModalOpen(true)}
-          onMouseMove={handleMouseMove}
-        >
-          <LuPlus size={16} />
-          <span>Criar chave de API</span>
-        </button>
+        {keys.length > 0 && (
+          <button 
+            className="create-key-btn" 
+            onClick={() => setIsModalOpen(true)}
+            onMouseMove={handleMouseMove}
+          >
+            <LuPlus size={16} />
+            <span>Criar chave de API</span>
+          </button>
+        )}
       </header>
 
-      <div className="api-keys-toolbar">
-        <div className="search-bar">
-          <LuSearch size={18} className="search-icon" />
-          <input 
-            type="text" 
-            placeholder="Pesquisar chaves de API..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      {keys.length > 0 && (
+        <div className="api-keys-toolbar">
+          <div className="search-bar">
+            <LuSearch size={18} className="search-icon" />
+            <input 
+              type="text" 
+              placeholder="Pesquisar chaves de API..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="table-container">
-        <table className="api-keys-table">
-          <thead>
-            <tr>
-              <th>Chave</th>
-              <th>Criado em</th>
-              <th className="actions-header"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredKeys.length > 0 ? (
-              filteredKeys.map(k => (
-                <tr key={k.id}>
-                  <td className="key-main-cell">
-                    <div className="key-string-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span className="key-value">
-                        {visibleKeys.includes(k.id) ? k.key : '•'.repeat(k.key.length - 4) + k.key.slice(-4)}
-                      </span>
-                      <button 
-                        className="icon-btn"
-                        onClick={() => toggleVisibility(k.id)}
-                        style={{ padding: '2px', opacity: 0.6 }}
-                        title={visibleKeys.includes(k.id) ? "Ocultar chave" : "Mostrar chave"}
-                      >
-                        {visibleKeys.includes(k.id) ? <LuEyeOff size={14} /> : <LuEye size={14} />}
-                      </button>
-                    </div>
-                    <div className="key-name-subtitle">{k.name}</div>
-                  </td>
-                  <td className="key-date">{k.createdAt}</td>
-                  <td className="key-actions">
-                    <div className="key-actions-wrapper">
-                      <button 
-                        className={`icon-btn copy-btn ${copiedId === k.id ? 'copied' : ''}`} 
-                        aria-label="Copiar chave" 
-                        title="Copiar chave"
-                        onClick={() => copyToClipboard(k.id, k.key)}
-                      >
-                        <LuCopy size={16} />
-                        {copiedId === k.id && <span className="copy-tooltip">Copiado!</span>}
-                      </button>
-                      <button 
-                        className="icon-btn danger" 
-                        aria-label="Excluir chave" 
-                        title="Excluir chave"
-                        onClick={() => deleteKey(k.id)}
-                      >
-                        <LuTrash2 size={16} />
-                      </button>
+        {keys.length > 0 ? (
+          <table className="api-keys-table">
+            <thead>
+              <tr>
+                <th>Chave</th>
+                <th>Criado em</th>
+                <th className="actions-header"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredKeys.length > 0 ? (
+                filteredKeys.map(k => (
+                  <tr key={k.id}>
+                    <td className="key-main-cell">
+                      <div className="key-string-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span className="key-value">
+                          {visibleKeys.includes(k.id) ? k.key : '•'.repeat(k.key.length - 4) + k.key.slice(-4)}
+                        </span>
+                        <button 
+                          className="icon-btn"
+                          onClick={() => toggleVisibility(k.id)}
+                          style={{ padding: '2px', opacity: 0.6 }}
+                          title={visibleKeys.includes(k.id) ? "Ocultar chave" : "Mostrar chave"}
+                        >
+                          {visibleKeys.includes(k.id) ? <LuEyeOff size={14} /> : <LuEye size={14} />}
+                        </button>
+                      </div>
+                      <div className="key-name-subtitle">{k.name}</div>
+                    </td>
+                    <td className="key-date">{k.createdAt}</td>
+                    <td className="key-actions">
+                      <div className="key-actions-wrapper">
+                        <button 
+                          className={`icon-btn copy-btn ${copiedId === k.id ? 'copied' : ''}`} 
+                          aria-label="Copiar chave" 
+                          title="Copiar chave"
+                          onClick={() => copyToClipboard(k.id, k.key)}
+                        >
+                          <LuCopy size={16} />
+                          {copiedId === k.id && <span className="copy-tooltip">Copiado!</span>}
+                        </button>
+                        <button 
+                          className="icon-btn danger" 
+                          aria-label="Excluir chave" 
+                          title="Excluir chave"
+                          onClick={() => deleteKey(k.id)}
+                        >
+                          <LuTrash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr className="empty-row">
+                  <td colSpan="4" className="empty-state">
+                    <div className="empty-state-content">
+                      <img 
+                        src={kasperIcon} 
+                        alt="Kasper" 
+                        width={100} 
+                        height={100} 
+                        style={{ opacity: 0.8, marginBottom: '16px' }} 
+                      />
+                      <h3>Não encontrou suas chaves de API?</h3>
+                      <p>Nenhuma chave corresponde à sua pesquisa. Tente usar outros termos.</p>
                     </div>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr className="empty-row">
-                <td colSpan="4" className="empty-state">
-                  <div className="empty-state-content">
-                    <img 
-                      src={kasperIcon} 
-                      alt="Kasper" 
-                      width={100} 
-                      height={100} 
-                      style={{ opacity: 0.8, marginBottom: '16px' }} 
-                    />
-                    <h3>Não encontrou suas chaves de API?</h3>
-                    <p>Nenhuma chave corresponde à sua pesquisa. Tente usar outros termos ou crie uma nova chave de API acima.</p>
-                  </div>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        ) : (
+          <div className="empty-state" style={{ padding: '60px 24px', display: 'flex', justifyContent: 'center' }}>
+            <div className="empty-state-content" style={{ marginTop: '40px' }}>
+              <img 
+                src={kasperIcon} 
+                alt="Kasper" 
+                width={100} 
+                height={100} 
+                style={{ opacity: 0.8, marginBottom: '16px' }} 
+              />
+              <h3>Não encontrou suas chaves de API?</h3>
+              <p style={{ marginBottom: '24px' }}>Nenhuma chave corresponde à sua pesquisa. Crie uma nova chave de API abaixo.</p>
+              
+              <button 
+                className="create-key-btn" 
+                onClick={() => setIsModalOpen(true)}
+                onMouseMove={handleMouseMove}
+              >
+                <LuPlus size={16} />
+                <span>Criar chave de API</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
