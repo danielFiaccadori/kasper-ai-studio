@@ -288,6 +288,7 @@
 
 .empty-state-content {
   display: flex;
+  margin-top: 9%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
