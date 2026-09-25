@@ -6,6 +6,7 @@ import './App.css';
 
 import ApiKeysPage from './pages/ApiKeysPage';
 import LoginPage from './pages/LoginPage';
+import SettingsPage from './pages/SettingsPage';
 
 // Componentes das páginas
 function UsagePage() {
@@ -17,14 +18,6 @@ function UsagePage() {
   );
 }
 
-function SettingsPage() {
-  return (
-    <div>
-      <h1 className="page-title">Configurações</h1>
-      <p style={{ color: 'var(--text-secondary)' }}>Suas preferências e opções estarão aqui em breve.</p>
-    </div>
-  );
-}
 
 function MainLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

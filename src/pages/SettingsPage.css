@@ -1,0 +1,163 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.settings-content {
+  flex: 1;
+  margin-top: 40px;
+  max-width: 700px;
+}
+
+.settings-section {
+  margin-bottom: 40px;
+}
+
+.settings-section h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #a0aec0;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.theme-options {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.theme-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.theme-preview {
+  width: 140px;
+  height: 100px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.theme-preview.active {
+  border-color: #ffffff; /* White border for active */
+}
+
+/* Light Theme Box */
+.theme-preview.light {
+  background-color: #f3f4f6;
+}
+.theme-preview.light .preview-inner {
+  background-color: #ffffff;
+  color: #000000;
+  border-top: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+}
+
+/* Dark Theme Box */
+.theme-preview.dark {
+  background-color: #1a1a1a;
+}
+.theme-preview.dark .preview-inner {
+  background-color: #050505;
+  color: #ffffff;
+  border-top: 1px solid #262626;
+  border-left: 1px solid #262626;
+}
+
+/* System Theme Box (Split) */
+.theme-preview.system {
+  background: linear-gradient(to right, #1a1a1a 50%, #f3f4f6 50%);
+}
+.theme-preview.system .dark-inner {
+  background-color: #050505;
+  color: #ffffff;
+  width: 50%; /* Take half of the inner width */
+  border-top: 1px solid #262626;
+  border-left: 1px solid #262626;
+  border-top-right-radius: 0;
+}
+.theme-preview.system .light-inner {
+  background-color: #ffffff;
+  color: #000000;
+  width: 50%; /* Take other half */
+  left: 50%;
+  border-top: 1px solid #e5e7eb;
+  border-top-left-radius: 0;
+}
+
+/* Common Inner Box */
+.preview-inner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 85%;
+  height: 75%;
+  border-top-left-radius: 12px;
+  display: flex;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.preview-text {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.checkmark {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.settings-footer {
+  margin-top: auto;
+  padding-top: 48px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-logo {
+  height: 20px;
+  opacity: 0.3; /* Makes the white logo appear as a subtle gray */
+  filter: grayscale(100%);
+}
+
+.app-version {
+  font-size: 12px;
+  color: #555555; /* Subtle dark gray */
+  user-select: none;
+  font-weight: 500;
+}
