@@ -206,9 +206,67 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 12px;
+}
+
+.backend-url-bar {
+  margin-top: 76px;
+  padding: 10px 12px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.backend-url-bar label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.backend-url-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.backend-url-input-row input {
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
+.backend-url-input-row input:focus {
+  outline: none;
+  border-color: #005ce6;
+}
+
+.backend-url-saved {
+  font-size: 11px;
+  font-weight: 600;
+  color: #10b981;
+}
+
+.auth-error-banner {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .input-group {

@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { Routes, Route, NavLink, Navigate, useNavigate } from 'react-router-dom';
-import { LuPanelLeft, LuLogOut, LuKey, LuActivity, LuSettings } from 'react-icons/lu';
+import { LuPanelLeft, LuLogOut, LuKey, LuSettings } from 'react-icons/lu';
 import kasperLogo from './assets/kasper_ai_studio.svg';
 import './App.css';
 
 import ApiKeysPage from './pages/ApiKeysPage';
 import LoginPage from './pages/LoginPage';
 import SettingsPage from './pages/SettingsPage';
+import { kasperApi } from './services/KasperApiClient';
 
 
 
 function MainLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
+  const currentUser = kasperApi.getUser();
+  const displayName = currentUser?.name || 'Usuário';
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   const handleLogout = () => {
+    kasperApi.logout();
     navigate('/login');
   };
 
@@ -43,7 +47,7 @@ function MainLayout({ children }) {
         <div className="sidebar-footer">
           <div className="profile-info">
             <img src="https://i.pravatar.cc/150?img=11" alt="Profile" className="profile-pic" />
-            <span className="profile-name">Daniel</span>
+            <span className="profile-name">{displayName}</span>
           </div>
           <div className="footer-actions" style={{ display: 'flex', gap: '4px' }}>
             <button className="logout-btn settings-btn" onClick={() => navigate('/settings')} aria-label="Configurações">

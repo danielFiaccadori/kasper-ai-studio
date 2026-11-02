@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import kasperLogoFull from '../assets/kasper_logo_full.svg';
 import githubLogo from '../assets/github_logo.png';
-import './LoginPage.css';
-
+import { kasperApi } from '../services/KasperApiClient';
 import './LoginPage.css';
 
 const phrases = [
@@ -132,16 +131,59 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [backendPortOrUrl, setBackendPortOrUrl] = useState(() => kasperApi.getBaseUrl());
+  const [portSavedFeedback, setPortSavedFeedback] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    navigate('/keys');
+  const applyBackendUrl = (value) => {
+    setBackendPortOrUrl(value);
+    const normalized = kasperApi.setBaseUrl(value);
+    setBackendPortOrUrl(normalized);
+    setPortSavedFeedback(true);
+    setTimeout(() => setPortSavedFeedback(false), 2000);
   };
 
-  const handleRegisterSubmit = (e) => {
+  const switchView = (nextView) => {
+    setErrorMessage('');
+    setView(nextView);
+  };
+
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    navigate('/keys');
+    setErrorMessage('');
+    setIsLoading(true);
+    try {
+      kasperApi.setBaseUrl(backendPortOrUrl);
+      await kasperApi.login({ email, password });
+      navigate('/keys');
+    } catch (err) {
+      setErrorMessage(err.message || 'Erro ao realizar login.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage('');
+
+    if (password.length < 8) {
+      setErrorMessage('A senha deve possuir no mínimo 8 caracteres.');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      kasperApi.setBaseUrl(backendPortOrUrl);
+      await kasperApi.registerAndLogin({ name, email, password });
+      navigate('/keys');
+    } catch (err) {
+      setErrorMessage(err.message || 'Erro ao realizar cadastro.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -176,10 +218,10 @@ export default function LoginPage() {
               </p>
               
               <div className="landing-actions">
-                <button className="landing-btn btn-primary" onClick={() => setView('login')}>
+                <button className="landing-btn btn-primary" onClick={() => switchView('login')}>
                   Login
                 </button>
-                <button className="landing-btn btn-secondary" onClick={() => setView('register')}>
+                <button className="landing-btn btn-secondary" onClick={() => switchView('register')}>
                   Cadastrar
                 </button>
               </div>
@@ -193,11 +235,32 @@ export default function LoginPage() {
                   src={kasperLogoFull} 
                   alt="Kasper Logo" 
                   className="card-logo" 
-                  onClick={() => setView('landing')}
+                  onClick={() => switchView('landing')}
                   title="Voltar"
                 />
                 
                 <div className="form-content-wrapper" key={view}>
+                  <div className="backend-url-bar">
+                    <label htmlFor="backend-url-input">Back-end (URL ou Porta):</label>
+                    <div className="backend-url-input-row">
+                      <input
+                        id="backend-url-input"
+                        type="text"
+                        value={backendPortOrUrl}
+                        onChange={(e) => setBackendPortOrUrl(e.target.value)}
+                        onBlur={(e) => applyBackendUrl(e.target.value)}
+                        placeholder="Ex: 8080 ou http://localhost:8080"
+                      />
+                      {portSavedFeedback && <span className="backend-url-saved">Salvo!</span>}
+                    </div>
+                  </div>
+
+                  {errorMessage && (
+                    <div className="auth-error-banner" role="alert">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   {view === 'login' ? (
                     <>
                       <form className="auth-form" onSubmit={handleLoginSubmit}>
@@ -232,7 +295,9 @@ export default function LoginPage() {
                           <a href="#" className="forgot-password">Forgot Password?</a>
                         </div>
 
-                        <button type="submit" className="submit-btn">Login</button>
+                        <button type="submit" className="submit-btn" disabled={isLoading}>
+                          {isLoading ? 'Autenticando...' : 'Login'}
+                        </button>
                       </form>
                       
                       <div className="divider">
@@ -241,7 +306,7 @@ export default function LoginPage() {
                       
                       <div className="social-login">
                         <button className="social-btn google" type="button">
-                          <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/24/svg">
+                          <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.16v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.16C1.43 8.55 1 10.22 1 12s.43 3.45 1.16 4.93l3.68-2.84z" fill="#FBBC05"/>
@@ -251,7 +316,7 @@ export default function LoginPage() {
                       </div>
                       
                       <div className="form-footer">
-                        Don't have an account? <span onClick={() => setView('register')}>Register here</span>
+                        Don't have an account? <span onClick={() => switchView('register')}>Register here</span>
                       </div>
                     </>
                   ) : (
@@ -286,18 +351,21 @@ export default function LoginPage() {
                           <input 
                             type="password" 
                             id="reg-password" 
-                            placeholder="Crie uma senha forte" 
+                            placeholder="Mínimo de 8 caracteres" 
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            minLength={8}
                             required 
                           />
                         </div>
 
-                        <button type="submit" className="submit-btn">Cadastrar</button>
+                        <button type="submit" className="submit-btn" disabled={isLoading}>
+                          {isLoading ? 'Cadastrando...' : 'Cadastrar'}
+                        </button>
                       </form>
                       
-                      <div className="form-footer" style={{ marginTop: '32px' }}>
-                        Já tem uma conta? <span onClick={() => setView('login')}>Fazer login</span>
+                      <div className="form-footer" style={{ marginTop: '24px' }}>
+                        Já tem uma conta? <span onClick={() => switchView('login')}>Fazer login</span>
                       </div>
                     </>
                   )}

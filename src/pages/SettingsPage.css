@@ -17,7 +17,7 @@
 .settings-section h2 {
   font-size: 13px;
   font-weight: 600;
-  color: #a0aec0;
+  color: var(--text-secondary);
   margin-bottom: 16px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -54,10 +54,11 @@
   box-sizing: border-box;
   border: 3px solid transparent;
   transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .theme-preview.active {
-  border-color: #ffffff; /* White border for active */
+  border-color: var(--text-primary);
 }
 
 /* Light Theme Box */
@@ -128,13 +129,13 @@
   right: 12px;
   width: 24px;
   height: 24px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--text-primary);
+  color: var(--bg-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
@@ -149,15 +150,90 @@
   gap: 8px;
 }
 
+.backend-settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.backend-settings-hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.backend-settings-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.backend-settings-input {
+  flex: 1;
+  min-width: 240px;
+  background-color: var(--surface-input);
+  border: 1px solid var(--surface-input-border);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.backend-settings-input:focus {
+  outline: none;
+  border-color: var(--surface-input-focus-border);
+  background-color: var(--surface-input-focus);
+}
+
+.backend-settings-btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.backend-settings-btn.primary {
+  background-color: var(--modal-confirm-bg);
+  color: var(--modal-confirm-color);
+  border-color: transparent;
+}
+
+.backend-settings-btn.primary:hover {
+  background-color: #005ce6;
+  color: #ffffff;
+}
+
+.backend-settings-btn.secondary {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+
+.backend-settings-btn.secondary:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+}
+
 .footer-logo {
   height: 20px;
-  opacity: 0.3; /* Makes the white logo appear as a subtle gray */
+  opacity: 0.35;
   filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+[data-theme="light"] .footer-logo {
+  filter: invert(1) grayscale(100%);
 }
 
 .app-version {
   font-size: 12px;
-  color: #555555; /* Subtle dark gray */
+  color: var(--text-muted);
   user-select: none;
   font-weight: 500;
 }
+

@@ -1,10 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
+  /* Default / Dark Theme tokens */
   --bg-color: #000000;
+  --sidebar-bg: #0a0a0a;
+  --sidebar-border: transparent;
+  
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   
+  --surface-card: #0a0a0a;
+  --surface-input: #121212;
+  --surface-input-border: #1f1f1f;
+  --surface-input-focus: #1a1a1a;
+  --surface-input-focus-border: #333333;
+  
+  --border-color: #1f1f1f;
+  --border-subtle: #141414;
+  --hover-bg: #161616;
+  
+  --toggle-btn-bg: #212121;
+  --toggle-btn-border: transparent;
+  --toggle-btn-hover: #2a2a2a;
+  
+  --modal-overlay: rgba(0, 0, 0, 0.6);
+  --modal-card-bg: #0a0a0a;
+  --modal-card-border: #1a1a1a;
+  --modal-card-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+  --modal-title-color: #ffffff;
+  --modal-subtitle-color: #888888;
+  --modal-confirm-bg: #ffffff;
+  --modal-confirm-color: #0a0a0a;
+  --modal-confirm-hover-bg: #005ce6;
+  --modal-confirm-hover-color: #ffffff;
+  --modal-cancel-hover-bg: #1a1a1a;
+  --modal-cancel-hover-color: #ffffff;
+  
+  --key-code-color: #60a5fa;
+  --copy-tooltip-bg: #262626;
+  --copy-tooltip-color: #ffffff;
+  --icon-hover-bg: #262626;
+
+  /* Button "Criar chave de API" tokens (Dark) */
+  --btn-key-bg: #0a0a0a;
+  --btn-key-color: #ffffff;
+  --btn-key-border: #1f1f1f;
+  --btn-key-inner-bg: #000000;
+  --btn-key-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  /* Typography */
   --font-primary: 'Open Sans', system-ui, -apple-system, sans-serif;
   --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-secondary: 'Cormorant Garamond', serif;
@@ -23,10 +68,67 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+[data-theme="light"] {
+  /* Light Theme tokens */
+  --bg-color: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e2e8f0;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  
+  --surface-card: #ffffff;
+  --surface-input: #ffffff;
+  --surface-input-border: #cbd5e1;
+  --surface-input-focus: #f8fafc;
+  --surface-input-focus-border: #94a3b8;
+  
+  --border-color: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --hover-bg: #f1f5f9;
+  
+  --toggle-btn-bg: #ffffff;
+  --toggle-btn-border: #e2e8f0;
+  --toggle-btn-hover: #f1f5f9;
+  
+  --modal-overlay: rgba(15, 23, 42, 0.4);
+  --modal-card-bg: #ffffff;
+  --modal-card-border: #e2e8f0;
+  --modal-card-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+  --modal-title-color: #0f172a;
+  --modal-subtitle-color: #64748b;
+  --modal-confirm-bg: #0f172a;
+  --modal-confirm-color: #ffffff;
+  --modal-confirm-hover-bg: #005ce6;
+  --modal-confirm-hover-color: #ffffff;
+  --modal-cancel-hover-bg: #f1f5f9;
+  --modal-cancel-hover-color: #0f172a;
+  
+  --key-code-color: #2563eb;
+  --copy-tooltip-bg: #0f172a;
+  --copy-tooltip-color: #ffffff;
+  --icon-hover-bg: #f1f5f9;
+
+  /* Button "Criar chave de API" tokens (Light) */
+  /* Preenchimento passa a ser branco, fonte preta, glow ciano/azul idêntico */
+  --btn-key-bg: #ffffff;
+  --btn-key-color: #000000;
+  --btn-key-border: #e2e8f0;
+  --btn-key-inner-bg: #ffffff;
+  --btn-key-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  color-scheme: light;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -38,3 +140,4 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300; /* Light */
   font-style: italic; /* Itálico */
 }
+

@@ -5,9 +5,9 @@
 }
 
 .sidebar {
-  background-color: #0a0a0a; /* Fundo levemente mais claro para contrastar com o preto */
-  border-right: none;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,11 @@
   width: 170px;
   max-width: 200px;
   height: auto;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, filter 0.3s ease;
+}
+
+[data-theme="light"] .sidebar-logo {
+  filter: invert(1);
 }
 
 .sidebar.collapsed .sidebar-logo {
@@ -68,7 +72,7 @@
 
 .nav-item:hover,
 .nav-item.active {
-  background-color: #161616;
+  background-color: var(--hover-bg);
   color: var(--text-primary);
 }
 
@@ -95,9 +99,10 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #212121;
+  background-color: var(--toggle-btn-bg);
   color: var(--text-secondary);
-  border: 0px;
+  border: 1px solid var(--toggle-btn-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,7 +113,7 @@
 }
 
 .toggle-btn:hover {
-  background-color: #2a2a2a;
+  background-color: var(--toggle-btn-hover);
   color: var(--text-primary);
   transform: scale(1.1);
 }
@@ -116,6 +121,8 @@
 .main-content {
   flex: 1;
   padding: 2rem;
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease;
 }
 
 .sidebar-footer {
@@ -164,7 +171,7 @@
 }
 
 .logout-btn:hover {
-  background-color: #212121;
+  background-color: var(--hover-bg);
   color: var(--text-primary);
 }
 
@@ -174,3 +181,4 @@
   transform: translateX(-10px);
   pointer-events: none;
 }
+
