@@ -185,7 +185,7 @@ export class KasperApiClient {
       });
     } catch (networkError) {
       throw new KasperApiError(
-        `Falha de conexão com o back-end (${targetBaseUrl}). Verifique se a porta está correta e o servidor está ativo.`,
+        'Não foi possível conectar ao servidor. Verifique sua conexão com a internet e tente novamente.',
         0,
         networkError
       );
@@ -210,14 +210,17 @@ export class KasperApiClient {
     }
 
     if (!response.ok) {
-      const errorMessage =
-        payload?.message ||
-        payload?.error ||
-        (response.status === 401
-          ? 'Não autenticado ou credenciais inválidas.'
-          : response.status === 403
-            ? 'Acesso negado para este recurso.'
-            : `Erro na requisição (${response.status}).`);
+      let errorMessage = payload?.message || payload?.error;
+
+      if (response.status === 401) {
+        errorMessage = 'E-mail ou senha incorretos. Por favor, verifique seus dados.';
+      } else if (response.status === 403) {
+        errorMessage = 'Você não possui permissão para acessar este recurso.';
+      } else if (response.status === 502 || response.status === 503 || response.status === 504) {
+        errorMessage = 'Nosso serviço está temporariamente indisponível. Tente novamente em alguns instantes.';
+      } else if (!errorMessage) {
+        errorMessage = 'Ocorreu um erro inesperado. Tente novamente em instantes.';
+      }
 
       throw new KasperApiError(errorMessage, response.status, payload);
     }

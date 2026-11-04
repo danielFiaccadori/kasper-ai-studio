@@ -38,11 +38,12 @@ function dynamicBackendProxyPlugin() {
           }
         )
 
-        proxyReq.on('error', (err) => {
+        proxyReq.on('error', () => {
           res.writeHead(502, { 'Content-Type': 'application/json' })
           res.end(
             JSON.stringify({
-              message: `Não foi possível conectar ao back-end em ${targetUrl.origin} (${err.message}). Verifique se o back-end está rodando nessa porta.`,
+              message:
+                'Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente em instantes.',
             })
           )
         })

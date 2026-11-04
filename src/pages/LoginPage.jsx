@@ -148,7 +148,11 @@ export default function LoginPage() {
       await kasperApi.login({ email, password });
       navigate('/keys');
     } catch (err) {
-      setErrorMessage(err.message || 'Erro ao realizar login.');
+      if (err.status === 401) {
+        setErrorMessage('E-mail ou senha incorretos. Verifique suas credenciais.');
+      } else {
+        setErrorMessage(err.message || 'Não foi possível realizar o login. Tente novamente.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -168,7 +172,11 @@ export default function LoginPage() {
       await kasperApi.registerAndLogin({ name, email, password });
       navigate('/keys');
     } catch (err) {
-      setErrorMessage(err.message || 'Erro ao realizar cadastro.');
+      if (err.message && err.message.toLowerCase().includes('já cadastrado')) {
+        setErrorMessage('Este e-mail já está cadastrado. Tente fazer login.');
+      } else {
+        setErrorMessage(err.message || 'Não foi possível concluir o cadastro. Tente novamente.');
+      }
     } finally {
       setIsLoading(false);
     }
