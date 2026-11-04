@@ -199,3 +199,73 @@
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar,
+  .sidebar.open,
+  .sidebar.collapsed {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .toggle-btn {
+    display: none;
+  }
+
+  .sidebar-header {
+    padding: 0;
+    height: auto;
+  }
+
+  .sidebar-logo,
+  .sidebar.collapsed .sidebar-logo {
+    width: 120px;
+    opacity: 1;
+    transform: none;
+  }
+
+  .sidebar-content {
+    padding: 0;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .nav-label {
+    display: none;
+  }
+
+  .sidebar-footer {
+    margin-top: 0;
+    padding: 0;
+    gap: 8px;
+  }
+
+  .profile-name {
+    display: none;
+  }
+
+  .sidebar.collapsed .footer-actions {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .main-content {
+    padding: 1.25rem 1rem;
+    overflow-x: hidden;
+  }
+}
+

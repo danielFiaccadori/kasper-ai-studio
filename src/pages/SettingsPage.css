@@ -168,3 +168,23 @@
   font-weight: 500;
 }
 
+@media (max-width: 768px) {
+  .settings-content {
+    margin-top: 16px;
+  }
+
+  .theme-options {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .theme-preview {
+    width: 105px;
+    height: 80px;
+  }
+
+  .theme-label {
+    font-size: 14px;
+  }
+}
+

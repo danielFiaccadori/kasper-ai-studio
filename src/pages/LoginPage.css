@@ -478,3 +478,130 @@
   opacity: 1;
   transform: scale(1.1);
 }
+
+/* ==========================================================================
+   MOBILE OPTIMIZATION (Desktop remains 100% untouched)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .landing-container {
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .landing-header {
+    padding: 20px 24px;
+    box-sizing: border-box;
+  }
+
+  .landing-logo {
+    height: 24px;
+  }
+
+  .landing-content {
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .landing-title {
+    font-size: 28px;
+    margin: 0 0 16px 0;
+    line-height: 1.25;
+  }
+
+  .landing-description {
+    font-size: 14px;
+    margin: 0 0 28px 0;
+    line-height: 1.5;
+  }
+
+  .landing-description br {
+    display: none;
+  }
+
+  .landing-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    gap: 12px;
+  }
+
+  .landing-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 12px 24px;
+  }
+
+  .split-card {
+    width: 100%;
+    max-width: 400px;
+    height: 510px;
+    max-height: calc(100dvh - 48px);
+    border-radius: 12px;
+  }
+
+  .split-right {
+    display: none;
+  }
+
+  .split-left {
+    padding: 28px 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .card-logo {
+    top: 32px;
+    left: 24px;
+    height: 30px;
+  }
+
+  .form-content-wrapper {
+    margin-top: 64px;
+  }
+
+  .auth-form {
+    gap: 16px;
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .github-link {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .github-link img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 768px) and (max-height: 660px) {
+  .split-card {
+    height: 460px;
+    max-height: calc(100dvh - 24px);
+  }
+
+  .card-logo {
+    top: 22px;
+    height: 26px;
+  }
+
+  .form-content-wrapper {
+    margin-top: 48px;
+  }
+
+  .auth-form {
+    gap: 12px;
+  }
+
+  .github-link {
+    display: none;
+  }
+}
