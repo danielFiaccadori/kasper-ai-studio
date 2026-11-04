@@ -1,28 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTheme } from '../context/useTheme';
 import kasperLogoFull from '../assets/kasper_logo_full.svg';
-import { kasperApi, DEFAULT_BACKEND_URL } from '../services/KasperApiClient';
 import './SettingsPage.css';
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
-  const [backendUrl, setBackendUrl] = useState(() => kasperApi.getBaseUrl());
-  const [savedNotice, setSavedNotice] = useState(false);
-
-  const handleSaveBackendUrl = (e) => {
-    e.preventDefault();
-    const normalized = kasperApi.setBaseUrl(backendUrl);
-    setBackendUrl(normalized);
-    setSavedNotice(true);
-    setTimeout(() => setSavedNotice(false), 2000);
-  };
-
-  const handleResetDefault = () => {
-    const normalized = kasperApi.setBaseUrl(DEFAULT_BACKEND_URL);
-    setBackendUrl(normalized);
-    setSavedNotice(true);
-    setTimeout(() => setSavedNotice(false), 2000);
-  };
 
   return (
     <div className="settings-page">
@@ -79,34 +61,6 @@ export default function SettingsPage() {
 
             </div>
           </div>
-        </div>
-
-        <div className="settings-section">
-          <h2>Conexão com o Back-end (Porta / URL)</h2>
-          <form className="backend-settings-form" onSubmit={handleSaveBackendUrl}>
-            <p className="backend-settings-hint">
-              Informe apenas o número da porta local (ex: <code>8080</code>) ou a URL completa da API do back-end.
-            </p>
-            <div className="backend-settings-row">
-              <input
-                type="text"
-                className="backend-settings-input"
-                value={backendUrl}
-                onChange={(e) => setBackendUrl(e.target.value)}
-                placeholder="Ex: 8080 ou http://localhost:8080"
-              />
-              <button type="submit" className="backend-settings-btn primary">
-                {savedNotice ? 'Salvo!' : 'Salvar Porta/URL'}
-              </button>
-              <button
-                type="button"
-                className="backend-settings-btn secondary"
-                onClick={handleResetDefault}
-              >
-                Padrão (8080)
-              </button>
-            </div>
-          </form>
         </div>
       </div>
 

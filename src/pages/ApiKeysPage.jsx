@@ -8,8 +8,6 @@ import {
   LuEye,
   LuEyeOff,
   LuBan,
-  LuRefreshCw,
-  LuServer,
 } from 'react-icons/lu';
 import kasperIcon from '../assets/kasper_logo_icon_large.svg';
 import { kasperApi } from '../services/KasperApiClient';
@@ -49,9 +47,6 @@ export default function ApiKeysPage() {
   const [errorBanner, setErrorBanner] = useState('');
   const [justCreatedToken, setJustCreatedToken] = useState(null);
 
-  const [backendUrlInput, setBackendUrlInput] = useState(() => kasperApi.getBaseUrl());
-  const [urlSavedBadge, setUrlSavedBadge] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newKeyName, setNewKeyName] = useState('');
 
@@ -67,7 +62,7 @@ export default function ApiKeysPage() {
         navigate('/login');
         return;
       }
-      setErrorBanner(err.message || 'Não foi possível carregar os tokens do back-end.');
+      setErrorBanner(err.message || 'Não foi possível carregar as chaves de API.');
     } finally {
       setIsLoading(false);
     }
@@ -95,7 +90,7 @@ export default function ApiKeysPage() {
           navigate('/login');
           return;
         }
-        setErrorBanner(err.message || 'Não foi possível carregar os tokens do back-end.');
+        setErrorBanner(err.message || 'Não foi possível carregar as chaves de API.');
       })
       .finally(() => {
         if (!isCancelled) {
@@ -107,15 +102,6 @@ export default function ApiKeysPage() {
       isCancelled = true;
     };
   }, [navigate]);
-
-  const handleApplyBackendUrl = (e) => {
-    e.preventDefault();
-    const normalized = kasperApi.setBaseUrl(backendUrlInput);
-    setBackendUrlInput(normalized);
-    setUrlSavedBadge(true);
-    setTimeout(() => setUrlSavedBadge(false), 2000);
-    fetchTokens();
-  };
 
   const filteredKeys = keys.filter((k) => {
     const term = searchTerm.toLowerCase();
@@ -204,13 +190,13 @@ export default function ApiKeysPage() {
 
   return (
     <div className="api-keys-container">
-      {/* Modal de Criação (Chama POST /api/tokens no Back-end) */}
+      {/* Modal de Criação */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2 className="modal-title">Criar nova chave de API</h2>
             <p className="modal-subtitle">
-              O back-end irá gerar um token global (<code>edupredict_sk_...</code>) associado à sua conta.
+              Dê um nome para identificar sua chave e utilizá-la em suas integrações.
             </p>
             <form onSubmit={handleCreateKey}>
               <div className="modal-input-group">
@@ -239,7 +225,7 @@ export default function ApiKeysPage() {
                   className="modal-btn confirm"
                   disabled={!newKeyName.trim() || isCreating}
                 >
-                  {isCreating ? 'Gerando no servidor...' : 'Criar chave'}
+                  {isCreating ? 'Criando chave...' : 'Criar chave'}
                 </button>
               </div>
             </form>
@@ -249,35 +235,16 @@ export default function ApiKeysPage() {
 
       <header className="api-keys-header">
         <h1 className="page-title">Chaves de API</h1>
-        <div className="header-right-controls">
-          <form className="backend-port-bar" onSubmit={handleApplyBackendUrl}>
-            <LuServer size={14} className="backend-port-icon" />
-            <label htmlFor="header-backend-port">Porta / URL:</label>
-            <input
-              id="header-backend-port"
-              type="text"
-              value={backendUrlInput}
-              onChange={(e) => setBackendUrlInput(e.target.value)}
-              placeholder="8080 ou http://localhost:8080"
-              title="Digite apenas o número da porta (ex: 8080) ou a URL completa do back-end"
-            />
-            <button type="submit" className="port-apply-btn" title="Aplicar porta e recarregar">
-              <LuRefreshCw size={13} />
-              <span>{urlSavedBadge ? 'Conectado!' : 'Aplicar'}</span>
-            </button>
-          </form>
-
-          {keys.length > 0 && (
-            <button
-              className="create-key-btn"
-              onClick={() => setIsModalOpen(true)}
-              onMouseMove={handleMouseMove}
-            >
-              <LuPlus size={16} />
-              <span>Criar chave de API</span>
-            </button>
-          )}
-        </div>
+        {keys.length > 0 && (
+          <button
+            className="create-key-btn"
+            onClick={() => setIsModalOpen(true)}
+            onMouseMove={handleMouseMove}
+          >
+            <LuPlus size={16} />
+            <span>Criar chave de API</span>
+          </button>
+        )}
       </header>
 
       {errorBanner && (
@@ -292,9 +259,9 @@ export default function ApiKeysPage() {
       {justCreatedToken && (
         <div className="created-token-banner">
           <div className="created-token-info">
-            <strong>Token gerado pelo back-end ({justCreatedToken.name}):</strong>
+            <strong>Sua nova chave de API ({justCreatedToken.name})</strong>
             <span>
-              Copie e guarde sua chave. Por segurança, o servidor armazena apenas o hash SHA-256.
+              Guarde essa chave com cuidado em um local seguro. Por motivos de segurança, ela não será exibida novamente por completo.
             </span>
             <code>{justCreatedToken.token}</code>
           </div>
@@ -306,7 +273,7 @@ export default function ApiKeysPage() {
             >
               <LuCopy size={14} />
               <span>
-                {copiedId === `banner-${justCreatedToken.id}` ? 'Copiado!' : 'Copiar Token'}
+                {copiedId === `banner-${justCreatedToken.id}` ? 'Copiado!' : 'Copiar chave'}
               </span>
             </button>
             <button
@@ -339,7 +306,7 @@ export default function ApiKeysPage() {
         {isLoading ? (
           <div className="empty-state" style={{ padding: '60px 24px' }}>
             <div className="empty-state-content">
-              <p>Carregando chaves de API do servidor...</p>
+              <p>Carregando suas chaves de API...</p>
             </div>
           </div>
         ) : keys.length > 0 ? (
@@ -389,11 +356,7 @@ export default function ApiKeysPage() {
                           <button
                             className={`icon-btn copy-btn ${copiedId === k.id ? 'copied' : ''}`}
                             aria-label="Copiar chave"
-                            title={
-                              k.token
-                                ? 'Copiar chave completa'
-                                : 'Copiar prefixo (a chave completa é exibida apenas na criação)'
-                            }
+                            title={k.token ? 'Copiar chave' : 'Copiar identificador da chave'}
                             onClick={() => copyToClipboard(k.id, copyableValue)}
                           >
                             <LuCopy size={16} />
@@ -404,7 +367,7 @@ export default function ApiKeysPage() {
                             <button
                               className="icon-btn warn"
                               aria-label="Revogar chave"
-                              title="Revogar chave (PATCH /api/tokens/{id}/revoke)"
+                              title="Revogar chave de API"
                               onClick={() => handleRevokeKey(k.id)}
                             >
                               <LuBan size={16} />
@@ -414,7 +377,7 @@ export default function ApiKeysPage() {
                           <button
                             className="icon-btn danger"
                             aria-label="Excluir chave"
-                            title="Excluir chave (DELETE /api/tokens/{id})"
+                            title="Excluir chave de API"
                             onClick={() => handleDeleteKey(k.id)}
                           >
                             <LuTrash2 size={16} />
@@ -458,7 +421,7 @@ export default function ApiKeysPage() {
               />
               <h3>Não encontrou suas chaves de API?</h3>
               <p style={{ marginBottom: '24px' }}>
-                Você ainda não possui chaves geradas no servidor. Crie uma nova chave de API abaixo.
+                Você ainda não possui chaves de API cadastradas. Crie uma nova chave abaixo para começar.
               </p>
 
               <button

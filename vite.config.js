@@ -3,7 +3,7 @@ import https from 'node:https'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-const DEFAULT_BACKEND_URL = 'http://localhost:8080'
+const DEFAULT_BACKEND_URL = 'http://52.67.241.122:8080'
 
 function dynamicBackendProxyPlugin() {
   return {

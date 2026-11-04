@@ -15,67 +15,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.header-right-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.backend-port-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--surface-input);
-  border: 1px solid var(--surface-input-border);
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.backend-port-icon {
-  color: var(--text-secondary);
-  flex-shrink: 0;
-}
-
-.backend-port-bar label {
-  color: var(--text-secondary);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.backend-port-bar input {
-  background: transparent;
-  border: none;
-  color: var(--text-primary);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 12px;
-  width: 175px;
-  outline: none;
-}
-
-.port-apply-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background-color: var(--hover-bg);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 4px 10px;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.port-apply-btn:hover {
-  border-color: #005ce6;
-  color: #60a5fa;
 }
 
 .api-error-alert {

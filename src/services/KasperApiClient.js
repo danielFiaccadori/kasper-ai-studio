@@ -1,4 +1,4 @@
-export const DEFAULT_BACKEND_HOST = 'http://localhost';
+export const DEFAULT_BACKEND_HOST = 'http://52.67.241.122';
 export const DEFAULT_BACKEND_PORT = '8080';
 export const DEFAULT_BACKEND_URL = `${DEFAULT_BACKEND_HOST}:${DEFAULT_BACKEND_PORT}`;
 
@@ -54,8 +54,7 @@ export class KasperApiClient {
    * Retorna a URL base configurada para o back-end (ex: "http://localhost:8080")
    */
   getBaseUrl() {
-    const saved = localStorage.getItem(STORAGE_KEYS.BACKEND_URL);
-    return saved ? this.normalizeUrlOrPort(saved) : this.defaultBaseUrl;
+    return this.defaultBaseUrl;
   }
 
   /**

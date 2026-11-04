@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, NavLink, Navigate, useNavigate } from 'react-router-dom';
-import { LuPanelLeft, LuLogOut, LuKey, LuSettings } from 'react-icons/lu';
+import { LuPanelLeft, LuLogOut, LuKey, LuSettings, LuUser } from 'react-icons/lu';
 import kasperLogo from './assets/kasper_ai_studio.svg';
 import './App.css';
 
@@ -46,7 +46,9 @@ function MainLayout({ children }) {
         </div>
         <div className="sidebar-footer">
           <div className="profile-info">
-            <img src="https://i.pravatar.cc/150?img=11" alt="Profile" className="profile-pic" />
+            <div className="profile-avatar" aria-hidden="true">
+              {displayName ? displayName.charAt(0).toUpperCase() : <LuUser size={15} />}
+            </div>
             <span className="profile-name">{displayName}</span>
           </div>
           <div className="footer-actions" style={{ display: 'flex', gap: '4px' }}>
