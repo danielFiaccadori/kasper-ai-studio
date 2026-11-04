@@ -154,10 +154,16 @@ export class KasperApiClient {
   async request(endpoint, { method = 'GET', body = null, bearerToken = null, headers = {} } = {}) {
     const targetBaseUrl = this.getBaseUrl();
     const isDevServer = Boolean(import.meta.env?.DEV);
+    const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+    const isDefaultBackend = !targetBaseUrl || targetBaseUrl === DEFAULT_BACKEND_URL;
 
-    // Em modo dev (Vite), usa o proxy relativo (/api/...) enviando o destino no header X-Kasper-Backend-Url
-    // para evitar bloqueios de CORS sem precisar alterar o back-end Spring Boot.
-    const requestUrl = isDevServer ? endpoint : `${targetBaseUrl}${endpoint}`;
+    // Em modo dev (Vite), em produção na Vercel (HTTPS -> HTTP) ou usando o backend padrão,
+    // usamos a rota relativa (/api/...) para que a requisição seja encaminhada pelo proxy do Vite
+    // ou pelo rewrite do vercel.json. Isso resolve de forma transparente e definitiva:
+    // 1. Bloqueio de Mixed Content (navegador bloqueando chamada HTTP vindo de página HTTPS)
+    // 2. Erros de CORS (a chamada parte do mesmo domínio/origem da Vercel)
+    const shouldUseRelativeProxy = isDevServer || isHttps || isDefaultBackend;
+    const requestUrl = shouldUseRelativeProxy ? endpoint : `${targetBaseUrl}${endpoint}`;
 
     const requestHeaders = {
       Accept: 'application/json',
