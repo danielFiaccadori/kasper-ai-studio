@@ -121,7 +121,7 @@
 /* Botão Criar Chave de API:
    - Dark mode: fundo escuro (#0a0a0a), texto branco (#ffffff)
    - Light mode: fundo branco (#ffffff), texto preto (#000000)
-   - Glow hover: IDÊNTICO em ambos os modos (radial gradient ciano/azul #00f0ff -> #005ce6)
+   - Glow hover: IDÊNTICO em ambos os modos (radial gradient amarelo/vermelho #ffd60a -> #ff3b30)
 */
 .create-key-btn {
   display: flex;
@@ -157,8 +157,8 @@
   height: 100%;
   background: radial-gradient(
     circle 50px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    #00f0ff 0%,
-    #005ce6 60%,
+    #ffd60a 0%,
+    #ff3b30 60%,
     transparent 100%
   );
   opacity: 0;
@@ -180,7 +180,7 @@
 .create-key-btn:hover {
   border-color: transparent;
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0, 240, 255, 0.2);
+  box-shadow: 0 6px 16px rgba(255, 99, 48, 0.35);
 }
 
 .create-key-btn:hover::before,

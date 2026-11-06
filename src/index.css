@@ -32,12 +32,12 @@
   --modal-subtitle-color: #888888;
   --modal-confirm-bg: #ffffff;
   --modal-confirm-color: #0a0a0a;
-  --modal-confirm-hover-bg: #005ce6;
-  --modal-confirm-hover-color: #ffffff;
+  --modal-confirm-hover-bg: #ffd60a;
+  --modal-confirm-hover-color: #050505;
   --modal-cancel-hover-bg: #1a1a1a;
   --modal-cancel-hover-color: #ffffff;
   
-  --key-code-color: #60a5fa;
+  --key-code-color: #ffd60a;
   --copy-tooltip-bg: #262626;
   --copy-tooltip-color: #ffffff;
   --icon-hover-bg: #262626;
@@ -100,12 +100,12 @@
   --modal-subtitle-color: #64748b;
   --modal-confirm-bg: #0f172a;
   --modal-confirm-color: #ffffff;
-  --modal-confirm-hover-bg: #005ce6;
-  --modal-confirm-hover-color: #ffffff;
+  --modal-confirm-hover-bg: #ffd60a;
+  --modal-confirm-hover-color: #050505;
   --modal-cancel-hover-bg: #f1f5f9;
   --modal-cancel-hover-color: #0f172a;
   
-  --key-code-color: #2563eb;
+  --key-code-color: #c99700;
   --copy-tooltip-bg: #0f172a;
   --copy-tooltip-color: #ffffff;
   --icon-hover-bg: #f1f5f9;

@@ -3,7 +3,7 @@
   flex-direction: column;
   min-height: 100vh;
   width: 100vw;
-  background-color: #050505;
+  background-color: #ffffff;
   position: relative;
   overflow: hidden;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -16,7 +16,7 @@
   transform: translate(-50%, -50%);
   width: 800px;
   height: 800px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(5, 5, 5, 0) 60%);
+  background: radial-gradient(circle, rgba(255, 214, 10, 0.08) 0%, rgba(255, 255, 255, 0) 60%);
   pointer-events: none;
   z-index: 1;
 }
@@ -41,6 +41,7 @@
 .landing-logo {
   height: 28px;
   width: auto;
+  filter: invert(1);
 }
 
 .landing-content {
@@ -76,7 +77,7 @@
 .landing-title {
   font-size: 45px;
   font-weight: 500;
-  color: #ffffff;
+  color: #050505;
   margin: 0 0 24px 0;
   letter-spacing: -1px;
   line-height: 1.2;
@@ -86,7 +87,7 @@
 
 .landing-description {
   font-size: 15px;
-  color: #94a3b8;
+  color: #64748b;
   margin: 0 0 40px 0;
   line-height: 1.6;
   max-width: 600px;
@@ -113,28 +114,28 @@
 }
 
 .landing-btn.btn-primary {
-  background-color: #ffffff;
+  background-color: #ffd60a;
   color: #050505;
 }
 
 .landing-btn.btn-primary:hover {
-  background-color: #005ce6;
-  color: #ffffff;
+  background-color: #f5c400;
+  color: #050505;
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 92, 230, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 214, 10, 0.4);
 }
 
 .landing-btn.btn-secondary {
   background-color: transparent;
-  border-color: #ffffff;
-  color: #ffffff;
+  border-color: #050505;
+  color: #050505;
 }
 
 .landing-btn.btn-secondary:hover {
-  background-color: #ffffff;
-  color: #050505;
+  background-color: #050505;
+  color: #ffffff;
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Split Card Styling */
@@ -147,7 +148,8 @@
   background-color: #ffffff;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+  border: 1px solid #f1f1f1;
 }
 
 .split-left {
@@ -181,7 +183,7 @@
 }
 
 .text-primary {
-  color: #005ce6;
+  color: #ffd60a;
 }
 
 .form-content-wrapper {
@@ -248,7 +250,7 @@
 
 .input-group input:focus {
   outline: none;
-  border-bottom-color: #005ce6;
+  border-bottom-color: #ffd60a;
 }
 
 /* Fix for browser autofill styles */
@@ -289,7 +291,7 @@
 }
 
 .forgot-password {
-  color: #005ce6;
+  color: #050505;
   text-decoration: none;
   font-weight: 600;
 }
@@ -299,8 +301,8 @@
 }
 
 .submit-btn {
-  background-color: #002d73; /* Darker blue from the mockup */
-  color: #ffffff;
+  background-color: #ffd60a;
+  color: #050505;
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 14px;
@@ -314,9 +316,9 @@
 }
 
 .submit-btn:hover {
-  background-color: #001a4d;
+  background-color: #f5c400;
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 45, 115, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 214, 10, 0.4);
 }
 
 .divider {
@@ -373,21 +375,21 @@
 }
 
 .form-footer span {
-  color: #002d73;
+  color: #050505;
   cursor: pointer;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .form-footer span:hover {
-  color: #005ce6;
+  color: #050505;
   text-decoration: underline;
 }
 
 /* Right Side - Carousel */
 .split-right {
   flex: 1;
-  background: linear-gradient(135deg, #001a4d, #005ce6);
+  background: linear-gradient(135deg, #ffd60a, #ffe45c);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -404,7 +406,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+  background-image: radial-gradient(circle at center, rgba(255,255,255,0.25) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -425,7 +427,7 @@
 .carousel-text {
   font-size: 24px;
   font-weight: 600;
-  color: #ffffff;
+  color: #050505;
   line-height: 1.4;
   margin: 0;
   animation: fadeIn 0.5s ease forwards;
@@ -442,12 +444,12 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
 .indicator.active {
-  background-color: #ffffff;
+  background-color: #050505;
   width: 24px;
   border-radius: 4px;
 }
@@ -472,6 +474,7 @@
 .github-link img {
   width: 40px;
   height: 40px;
+  filter: invert(1);
 }
 
 .github-link:hover {
