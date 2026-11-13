@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import {
   LuSearch,
@@ -190,10 +191,11 @@ export default function ApiKeysPage() {
 
   return (
     <div className="api-keys-container">
-      {/* Modal de Criação */}
-      {isModalOpen && (
+      {/* Modal de Criação (portal para document.body: nenhum ancestral com opacity/transform bloqueia o backdrop-filter) */}
+      {isModalOpen && createPortal(
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="modal-grain" aria-hidden="true" />
             <h2 className="modal-title">Criar nova chave de API</h2>
             <p className="modal-subtitle">
               Dê um nome para identificar sua chave e utilizá-la em suas integrações.
@@ -230,7 +232,8 @@ export default function ApiKeysPage() {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       <header className="api-keys-header">

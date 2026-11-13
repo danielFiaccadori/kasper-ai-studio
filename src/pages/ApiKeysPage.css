@@ -454,51 +454,68 @@
   line-height: 1.5;
 }
 
-/* Modal Styles */
+/* Modal Styles
+   Important: the overlay must NOT animate opacity/filter/transform.
+   Any of those turns it into a "backdrop root" and the card's
+   backdrop-filter would only see the (empty) overlay instead of the page. */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: var(--modal-overlay);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  animation: fadeIn 0.2s ease-out;
+  background-color: transparent;
+  animation: overlayTint 0.2s ease-out forwards;
+}
+
+@keyframes overlayTint {
+  from { background-color: transparent; }
+  to { background-color: var(--modal-overlay); }
 }
 
 .modal-content {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   background-color: var(--modal-card-bg);
-  backdrop-filter: blur(15px) saturate(160%);
   -webkit-backdrop-filter: blur(15px) saturate(160%);
+  backdrop-filter: blur(15px) saturate(160%);
   border: none;
   border-radius: 0;
   padding: 32px;
   width: 100%;
   max-width: 400px;
+  box-sizing: border-box;
   box-shadow: var(--modal-card-shadow);
-  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: modalRise 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modal-content::before {
-  content: "";
+/* Grain layer: grayscale fractal noise tiled over the frosted glass */
+.modal-grain {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  opacity: 0.09;
   z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.18;
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.modal-content > * {
+[data-theme="dark"] .modal-grain {
+  opacity: 0.12;
+}
+
+.modal-content > :not(.modal-grain) {
   position: relative;
   z-index: 1;
 }
 
-@keyframes slideUpFade {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Only transform (no opacity) so the glass is blurred from the first frame */
+@keyframes modalRise {
+  from { transform: translateY(16px); }
+  to { transform: translateY(0); }
 }
 
 .modal-title {
