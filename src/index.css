@@ -25,10 +25,10 @@
   --toggle-btn-border: #262626;
   --toggle-btn-hover: #1a1a1a;
   
-  --modal-overlay: rgba(0, 0, 0, 0.72);
-  --modal-card-bg: #080808;
-  --modal-card-border: #2a2a2a;
-  --modal-card-shadow: none;
+  --modal-overlay: rgba(0, 0, 0, 0.45);
+  --modal-card-bg: rgba(14, 14, 14, 0.65);
+  --modal-card-border: transparent;
+  --modal-card-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
   --modal-title-color: #ffffff;
   --modal-subtitle-color: #94a3b8;
   --modal-confirm-bg: #ffc700;
@@ -96,10 +96,10 @@
   --toggle-btn-border: #d4d4d8;
   --toggle-btn-hover: #f8fafc;
   
-  --modal-overlay: rgba(17, 17, 17, 0.45);
-  --modal-card-bg: #ffffff;
-  --modal-card-border: #111111;
-  --modal-card-shadow: none;
+  --modal-overlay: rgba(17, 17, 17, 0.15);
+  --modal-card-bg: rgba(255, 255, 255, 0.62);
+  --modal-card-border: transparent;
+  --modal-card-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
   --modal-title-color: #111111;
   --modal-subtitle-color: #475569;
   --modal-confirm-bg: #ffc700;
