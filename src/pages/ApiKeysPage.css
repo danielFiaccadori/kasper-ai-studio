@@ -23,21 +23,28 @@
   justify-content: space-between;
   gap: 12px;
   padding: 12px 16px;
-  border-radius: 10px;
-  background-color: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 0;
+  background-color: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  border-left: 3px solid #ef4444;
   color: #f87171;
   font-size: 13px;
 }
 
 .retry-inline-btn {
-  background: transparent;
-  border: 1px solid rgba(239, 68, 68, 0.5);
-  color: #f87171;
-  border-radius: 6px;
-  padding: 4px 10px;
+  background-color: #ef4444;
+  border: 1px solid #ef4444;
+  color: #ffffff;
+  border-radius: 0;
+  padding: 5px 12px;
   font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.retry-inline-btn:hover {
+  background-color: #dc2626;
 }
 
 .created-token-banner {
@@ -46,9 +53,10 @@
   justify-content: space-between;
   gap: 16px;
   padding: 16px 20px;
-  border-radius: 12px;
-  background-color: rgba(37, 99, 235, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 0;
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid #ffc700;
   flex-wrap: wrap;
 }
 
@@ -85,20 +93,23 @@
 .status-pill {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
-  border-radius: 12px;
+  padding: 4px 10px;
+  border-radius: 0;
+  border: none;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .status-pill.active {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #10b981;
+  background-color: #10b981;
+  color: #052e16;
 }
 
 .status-pill.revoked {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
+  background-color: #ef4444;
+  color: #ffffff;
 }
 
 .revoked-row {
@@ -106,8 +117,9 @@
 }
 
 .icon-btn.warn:hover {
-  background-color: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
+  background-color: #f59e0b;
+  border-color: #f59e0b;
+  color: #111111;
 }
 
 .page-title {
@@ -130,12 +142,12 @@
   background-color: var(--btn-key-bg);
   color: var(--btn-key-color);
   border: 1px solid var(--btn-key-border);
-  padding: 8px 16px;
-  border-radius: 24px;
+  padding: 9px 16px;
+  border-radius: 0;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--btn-key-shadow);
   font-family: var(--font-heading);
   position: relative;
@@ -162,7 +174,7 @@
     transparent 100%
   );
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
   z-index: -2;
 }
 
@@ -171,16 +183,16 @@
   position: absolute;
   inset: 1px;
   background-color: var(--btn-key-inner-bg);
-  border-radius: 23px;
+  border-radius: 0;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
   z-index: -1;
 }
 
 .create-key-btn:hover {
   border-color: transparent;
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(255, 99, 48, 0.35);
+  box-shadow: none;
 }
 
 .create-key-btn:hover::before,
@@ -215,13 +227,13 @@
 
 .search-bar input {
   width: 100%;
-  background-color: var(--surface-input);
+  background-color: transparent;
   border: 1px solid var(--surface-input-border);
   color: var(--text-primary);
-  padding: 10px 16px 10px 38px;
-  border-radius: 8px;
+  padding: 9px 14px 9px 38px;
+  border-radius: 0;
   font-size: 13px;
-  transition: all 0.2s ease;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
   font-family: inherit;
 }
 
@@ -238,7 +250,7 @@
 
 .table-container {
   background: transparent;
-  border: none;
+  border: 1px solid var(--border-color);
   border-radius: 0;
   overflow: visible;
   box-shadow: none;
@@ -251,16 +263,18 @@
 }
 
 .api-keys-table th {
-  padding: 16px 8px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--text-secondary);
   border-bottom: 1px solid var(--border-color);
   background-color: transparent;
 }
 
 .api-keys-table td {
-  padding: 16px 8px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border-subtle);
   vertical-align: middle;
   background-color: transparent;
@@ -323,47 +337,52 @@
 
 .icon-btn {
   position: relative;
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
+  background-color: var(--btn-icon-bg);
+  border: 1px solid transparent;
+  color: var(--btn-icon-color);
   cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
+  padding: 7px;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.18s ease;
 }
 
 .icon-btn:hover {
-  background-color: var(--icon-hover-bg);
-  color: var(--text-primary);
+  background-color: #ffc700;
+  border-color: #ffc700;
+  color: #111111;
 }
 
 .icon-btn.danger:hover {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
 }
 
 .icon-btn.copied {
-  color: #10b981;
+  background-color: #10b981;
+  border-color: #10b981;
+  color: #052e16;
 }
 
 .copy-tooltip {
   position: absolute;
-  top: -30px;
+  top: -32px;
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--copy-tooltip-bg);
   color: var(--copy-tooltip-color);
+  border: 1px solid var(--border-color);
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 11px;
   font-weight: 500;
   pointer-events: none;
   white-space: nowrap;
   animation: fadeInOut 2s ease forwards;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .copy-tooltip::after {
@@ -409,15 +428,15 @@
 .empty-icon-wrapper {
   width: 56px;
   height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
-  border: none;
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
   margin-bottom: 8px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  box-shadow: none;
 }
 
 .empty-state h3 {
@@ -440,7 +459,7 @@
   position: fixed;
   inset: 0;
   background-color: var(--modal-overlay);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -451,7 +470,7 @@
 .modal-content {
   background-color: var(--modal-card-bg);
   border: 1px solid var(--modal-card-border);
-  border-radius: 16px;
+  border-radius: 0;
   padding: 32px;
   width: 100%;
   max-width: 400px;
@@ -484,20 +503,20 @@
 }
 
 .modal-input-group label {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--text-secondary);
 }
 
 .modal-input-group input {
   width: 100%;
-  background-color: var(--surface-input);
+  background-color: transparent;
   border: 1px solid var(--surface-input-border);
   color: var(--text-primary);
-  padding: 12px 16px;
-  border-radius: 8px;
+  padding: 11px 14px;
+  border-radius: 0;
   font-size: 14px;
-  transition: all 0.2s ease;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
   font-family: inherit;
   box-sizing: border-box;
 }
@@ -517,44 +536,44 @@
 
 .modal-btn {
   padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 0;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  border: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: inherit;
+  border: 1px solid transparent;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-heading);
 }
 
 .modal-btn.cancel {
   background-color: transparent;
   color: var(--text-secondary);
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
 }
 
 .modal-btn.cancel:hover {
   background-color: var(--modal-cancel-hover-bg);
   color: var(--modal-cancel-hover-color);
-  transform: scale(1.02);
+  border-color: var(--text-secondary);
 }
 
 .modal-btn.confirm {
   background-color: var(--modal-confirm-bg);
   color: var(--modal-confirm-color);
-  border: 1px solid transparent;
+  border: 1px solid var(--modal-confirm-bg);
 }
 
 .modal-btn.confirm:hover {
   background-color: var(--modal-confirm-hover-bg);
   color: var(--modal-confirm-hover-color);
-  transform: scale(1.02);
+  border-color: var(--modal-confirm-hover-bg);
 }
 
 .modal-btn.confirm:disabled {
-  background-color: var(--hover-bg);
+  background-color: transparent;
+  border-color: var(--border-color);
   color: var(--text-muted);
   cursor: not-allowed;
-  transform: scale(1);
 }
 
 @media (max-width: 768px) {

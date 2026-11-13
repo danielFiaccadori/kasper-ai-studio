@@ -2,52 +2,55 @@
 
 :root {
   /* Default / Dark Theme tokens */
-  --bg-color: #000000;
-  --sidebar-bg: #0a0a0a;
-  --sidebar-border: transparent;
+  --bg-color: #050505;
+  --vignette-fade-start: rgba(5, 5, 5, 0);
+  --sidebar-bg: #080808;
+  --sidebar-border: #1f1f1f;
   
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   
   --surface-card: #0a0a0a;
-  --surface-input: #121212;
-  --surface-input-border: #1f1f1f;
-  --surface-input-focus: #1a1a1a;
-  --surface-input-focus-border: #333333;
+  --surface-input: #0d0d0d;
+  --surface-input-border: #262626;
+  --surface-input-focus: #121212;
+  --surface-input-focus-border: #ffc700;
   
-  --border-color: #1f1f1f;
-  --border-subtle: #141414;
-  --hover-bg: #161616;
+  --border-color: #242424;
+  --border-subtle: #181818;
+  --hover-bg: #141414;
   
-  --toggle-btn-bg: #212121;
-  --toggle-btn-border: transparent;
-  --toggle-btn-hover: #2a2a2a;
+  --toggle-btn-bg: #0a0a0a;
+  --toggle-btn-border: #262626;
+  --toggle-btn-hover: #1a1a1a;
   
-  --modal-overlay: rgba(0, 0, 0, 0.6);
-  --modal-card-bg: #0a0a0a;
-  --modal-card-border: #1a1a1a;
-  --modal-card-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+  --modal-overlay: rgba(0, 0, 0, 0.72);
+  --modal-card-bg: #080808;
+  --modal-card-border: #2a2a2a;
+  --modal-card-shadow: none;
   --modal-title-color: #ffffff;
-  --modal-subtitle-color: #888888;
-  --modal-confirm-bg: #ffffff;
-  --modal-confirm-color: #0a0a0a;
-  --modal-confirm-hover-bg: #ffd60a;
-  --modal-confirm-hover-color: #050505;
-  --modal-cancel-hover-bg: #1a1a1a;
+  --modal-subtitle-color: #94a3b8;
+  --modal-confirm-bg: #ffc700;
+  --modal-confirm-color: #111111;
+  --modal-confirm-hover-bg: #eab308;
+  --modal-confirm-hover-color: #111111;
+  --modal-cancel-hover-bg: #141414;
   --modal-cancel-hover-color: #ffffff;
   
-  --key-code-color: #ffd60a;
-  --copy-tooltip-bg: #262626;
+  --key-code-color: #ffc700;
+  --copy-tooltip-bg: #141414;
   --copy-tooltip-color: #ffffff;
-  --icon-hover-bg: #262626;
+  --icon-hover-bg: #ffc700;
+  --btn-icon-bg: #1c1c1c;
+  --btn-icon-color: #e2e8f0;
 
   /* Button "Criar chave de API" tokens (Dark) */
-  --btn-key-bg: #0a0a0a;
-  --btn-key-color: #ffffff;
-  --btn-key-border: #1f1f1f;
-  --btn-key-inner-bg: #000000;
-  --btn-key-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --btn-key-bg: #ffc700;
+  --btn-key-color: #111111;
+  --btn-key-border: #ffc700;
+  --btn-key-inner-bg: #ffc700;
+  --btn-key-shadow: none;
 
   /* Typography */
   --font-primary: 'Open Sans', system-ui, -apple-system, sans-serif;
@@ -70,53 +73,55 @@
 
 [data-theme="light"] {
   /* Light Theme tokens */
-  --bg-color: #f8fafc;
+  --bg-color: #ffffff;
+  --vignette-fade-start: rgba(255, 255, 255, 0);
   --sidebar-bg: #ffffff;
   --sidebar-border: #e2e8f0;
   
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
+  --text-primary: #111111;
+  --text-secondary: #475569;
   --text-muted: #94a3b8;
   
   --surface-card: #ffffff;
   --surface-input: #ffffff;
   --surface-input-border: #cbd5e1;
-  --surface-input-focus: #f8fafc;
-  --surface-input-focus-border: #94a3b8;
+  --surface-input-focus: #ffffff;
+  --surface-input-focus-border: #111111;
   
   --border-color: #e2e8f0;
   --border-subtle: #f1f5f9;
-  --hover-bg: #f1f5f9;
+  --hover-bg: #f8fafc;
   
   --toggle-btn-bg: #ffffff;
-  --toggle-btn-border: #e2e8f0;
-  --toggle-btn-hover: #f1f5f9;
+  --toggle-btn-border: #d4d4d8;
+  --toggle-btn-hover: #f8fafc;
   
-  --modal-overlay: rgba(15, 23, 42, 0.4);
+  --modal-overlay: rgba(17, 17, 17, 0.45);
   --modal-card-bg: #ffffff;
-  --modal-card-border: #e2e8f0;
-  --modal-card-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
-  --modal-title-color: #0f172a;
-  --modal-subtitle-color: #64748b;
-  --modal-confirm-bg: #0f172a;
-  --modal-confirm-color: #ffffff;
-  --modal-confirm-hover-bg: #ffd60a;
-  --modal-confirm-hover-color: #050505;
-  --modal-cancel-hover-bg: #f1f5f9;
-  --modal-cancel-hover-color: #0f172a;
+  --modal-card-border: #111111;
+  --modal-card-shadow: none;
+  --modal-title-color: #111111;
+  --modal-subtitle-color: #475569;
+  --modal-confirm-bg: #ffc700;
+  --modal-confirm-color: #111111;
+  --modal-confirm-hover-bg: #eab308;
+  --modal-confirm-hover-color: #111111;
+  --modal-cancel-hover-bg: #f8fafc;
+  --modal-cancel-hover-color: #111111;
   
-  --key-code-color: #c99700;
-  --copy-tooltip-bg: #0f172a;
+  --key-code-color: #b88600;
+  --copy-tooltip-bg: #111111;
   --copy-tooltip-color: #ffffff;
-  --icon-hover-bg: #f1f5f9;
+  --icon-hover-bg: #ffc700;
+  --btn-icon-bg: #e4e4e7;
+  --btn-icon-color: #111111;
 
   /* Button "Criar chave de API" tokens (Light) */
-  /* Preenchimento passa a ser branco, fonte preta, glow ciano/azul idêntico */
-  --btn-key-bg: #ffffff;
-  --btn-key-color: #000000;
-  --btn-key-border: #e2e8f0;
-  --btn-key-inner-bg: #ffffff;
-  --btn-key-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --btn-key-bg: #ffc700;
+  --btn-key-color: #111111;
+  --btn-key-border: #ffc700;
+  --btn-key-inner-bg: #ffc700;
+  --btn-key-shadow: none;
 
   color-scheme: light;
   color: var(--text-primary);

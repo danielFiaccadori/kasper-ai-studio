@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Routes, Route, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { LuPanelLeft, LuLogOut, LuKey, LuSettings, LuUser } from 'react-icons/lu';
 import kasperLogo from './assets/kasper_ai_studio.svg';
@@ -13,9 +13,106 @@ import { kasperApi } from './services/KasperApiClient';
 
 function MainLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [scrollState, setScrollState] = useState({
+    hasOverflow: false,
+    thumbHeight: 40,
+    thumbTop: 0
+  });
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [isTrackHovered, setIsTrackHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const mainRef = useRef(null);
+  const hideTimerRef = useRef(null);
+  const dragStartRef = useRef({ y: 0, scrollTop: 0 });
   const navigate = useNavigate();
   const currentUser = kasperApi.getUser();
   const displayName = currentUser?.name || 'Usuário';
+
+  const updateScrollbar = useCallback(() => {
+    const el = mainRef.current;
+    if (!el) return;
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const maxScroll = scrollHeight - clientHeight;
+    if (maxScroll <= 1) {
+      setScrollState((prev) => (prev.hasOverflow ? { ...prev, hasOverflow: false } : prev));
+      return;
+    }
+    const thumbHeight = Math.max(40, (clientHeight / scrollHeight) * clientHeight);
+    const maxThumbTop = clientHeight - thumbHeight;
+    const thumbTop = (scrollTop / maxScroll) * maxThumbTop;
+    setScrollState({ hasOverflow: true, thumbHeight, thumbTop });
+  }, []);
+
+  const triggerScrollVisibility = useCallback(() => {
+    setIsScrolling(true);
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    hideTimerRef.current = setTimeout(() => {
+      setIsScrolling(false);
+    }, 900);
+  }, []);
+
+  useEffect(() => {
+    const el = mainRef.current;
+    if (!el) return;
+
+    updateScrollbar();
+
+    const handleScroll = () => {
+      updateScrollbar();
+      triggerScrollVisibility();
+    };
+
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    const resizeObserver = new ResizeObserver(updateScrollbar);
+    resizeObserver.observe(el);
+    if (el.firstElementChild) {
+      resizeObserver.observe(el.firstElementChild);
+    }
+
+    return () => {
+      el.removeEventListener('scroll', handleScroll);
+      resizeObserver.disconnect();
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    };
+  }, [children, updateScrollbar, triggerScrollVisibility]);
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handlePointerMove = (e) => {
+      const el = mainRef.current;
+      if (!el) return;
+      const { scrollHeight, clientHeight } = el;
+      const maxScroll = scrollHeight - clientHeight;
+      const maxThumbTop = clientHeight - scrollState.thumbHeight;
+      if (maxThumbTop <= 0 || maxScroll <= 0) return;
+
+      const deltaY = e.clientY - dragStartRef.current.y;
+      const scrollRatio = maxScroll / maxThumbTop;
+      el.scrollTop = dragStartRef.current.scrollTop + deltaY * scrollRatio;
+    };
+
+    const handlePointerUp = () => {
+      setIsDragging(false);
+      triggerScrollVisibility();
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+    };
+  }, [isDragging, scrollState.thumbHeight, triggerScrollVisibility]);
+
+  const handleThumbPointerDown = (e) => {
+    e.preventDefault();
+    const el = mainRef.current;
+    if (!el) return;
+    dragStartRef.current = { y: e.clientY, scrollTop: el.scrollTop };
+    setIsDragging(true);
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -25,6 +122,8 @@ function MainLayout({ children }) {
     kasperApi.logout();
     navigate('/login');
   };
+
+  const showThumb = scrollState.hasOverflow && (isScrolling || isTrackHovered || isDragging);
 
   return (
     <div className="app-layout">
@@ -62,9 +161,31 @@ function MainLayout({ children }) {
         </div>
       </aside>
       
-      <main className="main-content">
-        {children}
-      </main>
+      <div className="main-pane">
+        <main className="main-content" ref={mainRef}>
+          {children}
+        </main>
+        <div className="scroll-bottom-vignette" aria-hidden="true" />
+        {scrollState.hasOverflow && (
+          <div
+            className="custom-scrollbar-track"
+            onMouseEnter={() => setIsTrackHovered(true)}
+            onMouseLeave={() => setIsTrackHovered(false)}
+            aria-hidden="true"
+          >
+            <div
+              className="custom-scrollbar-thumb-slot"
+              style={{
+                height: `${scrollState.thumbHeight}px`,
+                transform: `translateY(${scrollState.thumbTop}px)`
+              }}
+              onPointerDown={handleThumbPointerDown}
+            >
+              <div className={`custom-scrollbar-thumb ${showThumb ? 'visible' : ''}`} />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

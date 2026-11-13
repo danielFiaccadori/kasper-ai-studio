@@ -48,17 +48,21 @@
 .theme-preview {
   width: 140px;
   height: 100px;
-  border-radius: 16px;
+  border-radius: 0;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  border: 3px solid transparent;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid var(--border-color);
+  transition: border-color 0.2s ease;
+  box-shadow: none;
+}
+
+.theme-preview:hover {
+  border-color: var(--text-secondary);
 }
 
 .theme-preview.active {
-  border-color: var(--text-primary);
+  border: 2px solid #ffc700;
 }
 
 /* Light Theme Box */
@@ -111,7 +115,7 @@
   right: 0;
   width: 85%;
   height: 75%;
-  border-top-left-radius: 12px;
+  border-top-left-radius: 0;
   display: flex;
   padding: 16px;
   box-sizing: border-box;
@@ -125,17 +129,17 @@
 
 .checkmark {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 24px;
-  height: 24px;
-  background-color: var(--text-primary);
-  color: var(--bg-color);
-  border-radius: 50%;
+  bottom: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  background-color: #ffc700;
+  color: #111111;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
   z-index: 10;
 }
 

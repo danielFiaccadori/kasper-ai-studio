@@ -6,7 +6,7 @@ export const STORAGE_KEY = 'kasper_user_settings';
  */
 export function loadUserSettings() {
   if (typeof window === 'undefined') {
-    return { appearance: { theme: 'system' } };
+    return { appearance: { theme: 'light' } };
   }
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -23,7 +23,7 @@ export function loadUserSettings() {
   } catch (error) {
     console.warn('Failed to parse kasper_user_settings from storage:', error);
   }
-  return { appearance: { theme: 'system' } };
+  return { appearance: { theme: 'light' } };
 }
 
 /**

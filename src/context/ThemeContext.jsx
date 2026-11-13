@@ -4,10 +4,10 @@ import { ThemeContext } from './themeContextInstance';
 
 export function ThemeProvider({ children }) {
   const [settings, setSettings] = useState(() => loadUserSettings());
-  const theme = settings.appearance?.theme || 'system';
+  const theme = settings.appearance?.theme || 'light';
 
   const getSystemTheme = useCallback(() => {
-    if (typeof window === 'undefined') return 'dark';
+    if (typeof window === 'undefined') return 'light';
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }, []);
 
